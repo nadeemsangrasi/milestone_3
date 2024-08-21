@@ -1,5 +1,6 @@
 "use client";
 
+import HomeSection from "@/components/sections/homeSection/HomeSection";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -28,7 +29,7 @@ export default function Home() {
   // const handleAddToCart = async (id: string) => {};
   return (
     <div>
-      <p>This is the home page</p>
+      <HomeSection />
     </div>
   );
 }
