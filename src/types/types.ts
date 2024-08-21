@@ -22,3 +22,13 @@ export interface IButtonProps {
   type: ButtonType;
   className?: string;
 }
+
+export interface IBlogPost {
+  id: string;
+  title: string;
+  content: string;
+  date: Date;
+  imageURL: string;
+  detailImageURL: string;
+  comments: string[];
+}

@@ -1,5 +1,6 @@
+import { IProduct } from "@/types/types";
 import { NextRequest, NextResponse } from "next/server";
-export const carts = [];
+export const carts: IProduct[] = [];
 export const POST = async (req: NextRequest) => {
   try {
     const { id } = await req.json();
@@ -12,7 +13,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     const res = await fetch(`https://dummyjson.com/products/${id}`);
-    console.log(res);
+
     if (res.status !== 200) {
       console.error("Product not found");
       return NextResponse.json(
@@ -21,7 +22,6 @@ export const POST = async (req: NextRequest) => {
       );
     }
     const product = await res.json();
-    console.log(product);
     carts.push(product);
     return NextResponse.json(
       {
@@ -46,7 +46,7 @@ export const GET = async () => {
       { status: 500 }
     );
   }
-  return NextResponse.json(carts, { status: 200 });
+  return NextResponse.json({ carts }, { status: 200 });
 };
 
 export const DELETE = async (req: NextRequest) => {

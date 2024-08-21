@@ -1,4 +1,5 @@
 "use client";
+import { fetchCartsData } from "@/lib/fetchCartsDara";
 import { fetchProductsData } from "@/lib/fetchProductsData";
 import { IProduct } from "@/types/types";
 import { useContext, createContext, useState, useEffect } from "react";
@@ -7,7 +8,7 @@ const CartContext = createContext<null | any>(null);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [cartAddedMessage, setCartAddedMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [cartCount, setCartCount] = useState<number>(0);
   const [products, setProducts] = useState<IProduct[]>([]);
 
@@ -30,8 +31,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       });
       const data = await res.json();
       if (data.success) {
-        setCartAddedMessage(data.message);
-        alert(data.message);
+        setMessage(data.message);
+        // alert(message);
       }
     } catch (error) {
       console.error("Error adding product to cart", error);
@@ -50,7 +51,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ id }),
       });
       const data = await res.json();
-      console.log(data);
+      if (data.success) {
+        setMessage(data.message);
+        alert(message);
+      }
     } catch (error) {
       console.error("Error deleting product from cart", error);
     }
