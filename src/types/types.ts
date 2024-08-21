@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface IProduct {
   id: string;
   title: string;
@@ -28,7 +30,7 @@ export interface IBlogPost {
   title: string;
   content: string;
   date: string;
-  imageURL: string;
-  detailImageURL: string;
+  imageURL: StaticImageData;
+  detailImageURL: StaticImageData;
   comments: string[];
 }

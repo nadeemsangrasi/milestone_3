@@ -1,6 +1,9 @@
 import Wrapper from "@/components/shared/Wrapper";
 import { blogsData } from "@/data/blogsData";
+import { IBlogPost } from "@/types/types";
+import Image from "next/image";
 import React from "react";
+import BlogCard from "./BlogCard";
 
 const BlogsPage = () => {
   return (
@@ -11,10 +14,8 @@ const BlogsPage = () => {
             Explore Our Blogs
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogsData.map((blog: any) => (
-              <div key={blog.id}>
-                <h1>{blog.title}</h1>
-              </div>
+            {blogsData.map((blog: IBlogPost) => (
+              <BlogCard key={blog.id} blog={blog} />
             ))}
           </div>
         </div>
