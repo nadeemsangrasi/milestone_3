@@ -17,7 +17,7 @@ const Header = () => {
               <Link href={"# "}>Blogs</Link>
             </li>
             <li className="text-semibold text-2xl ">
-              <Link href={"# "} className="flex gap-1 items-center">
+              <Link href={"/p"} className="flex gap-1 items-center">
                 <ShoppingCart fontSizeAdjust={20} /> {cartCount}
               </Link>
             </li>

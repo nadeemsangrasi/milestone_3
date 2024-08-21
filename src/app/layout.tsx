@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-primary-black  relative ${inter.className}`}>
+      <body
+        className={`bg-primary-black text-white relative ${inter.className}`}
+      >
         <CartProvider>
           <Header />
           {children}
