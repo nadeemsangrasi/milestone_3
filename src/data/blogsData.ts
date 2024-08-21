@@ -1,4 +1,6 @@
-export const blogsData = [
+import { IBlogPost } from "@/types/types";
+
+export const blogsData: IBlogPost[] = [
   {
     id: "1",
     title: "Enhancing User Experience in E-Commerce with Advanced Filtering",

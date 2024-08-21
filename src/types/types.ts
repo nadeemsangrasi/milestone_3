@@ -27,7 +27,7 @@ export interface IBlogPost {
   id: string;
   title: string;
   content: string;
-  date: Date;
+  date: string;
   imageURL: string;
   detailImageURL: string;
   comments: string[];
