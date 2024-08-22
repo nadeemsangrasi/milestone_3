@@ -1,7 +1,9 @@
 "use client";
+
+import { blogsData } from "@/data/blogsData";
 import { fetchCartsData } from "@/lib/fetchCartsDara";
 import { fetchProductsData } from "@/lib/fetchProductsData";
-import { IProduct } from "@/types/types";
+import { IBlogPost, IProduct } from "@/types/types";
 import { useContext, createContext, useState, useEffect } from "react";
 
 const CartContext = createContext<null | any>(null);
@@ -11,8 +13,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [message, setMessage] = useState<string>("");
   const [cartCount, setCartCount] = useState<number>(0);
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [blogs, setBlogs] = useState<IBlogPost[]>([]);
 
   useEffect(() => {
+    setBlogs(blogsData);
     fetchProductsData().then((data) => {
       setIsLoading(true);
       setProducts(data.products);
@@ -41,7 +45,15 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartCount, products, addToCart, isLoading, setCartCount }}
+      value={{
+        cartCount,
+        products,
+        addToCart,
+        isLoading,
+        setCartCount,
+        blogs,
+        setBlogs,
+      }}
     >
       {children}
     </CartContext.Provider>

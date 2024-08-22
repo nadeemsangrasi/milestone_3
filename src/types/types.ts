@@ -26,6 +26,12 @@ export interface IButtonProps {
   className?: string;
 }
 
+export interface IBlogComment {
+  id: string;
+  author: string;
+  date: string;
+  content: string;
+}
 export interface IBlogPost {
   id: string;
   title: string;
@@ -33,5 +39,5 @@ export interface IBlogPost {
   date: string;
   imageURL: StaticImageData;
   detailImageURL: StaticImageData;
-  comments: string[];
+  comments: IBlogComment[];
 }
