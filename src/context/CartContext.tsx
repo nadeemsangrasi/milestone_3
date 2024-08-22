@@ -1,7 +1,7 @@
 "use client";
 
 import { blogsData } from "@/data/blogsData";
-import { fetchCartsData } from "@/lib/fetchCartsDara";
+
 import { fetchProductsData } from "@/lib/fetchProductsData";
 import { IBlogPost, IProduct } from "@/types/types";
 import { useContext, createContext, useState, useEffect } from "react";
@@ -17,11 +17,13 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setBlogs(blogsData);
-    fetchProductsData().then((data) => {
+    async function fetchProducts() {
       setIsLoading(true);
+      const data = await fetchProductsData();
       setProducts(data.products);
       setIsLoading(false);
-    });
+    }
+    fetchProducts();
   }, []);
   const addToCart = async (id: string) => {
     setCartCount((cartCount: number) => cartCount + 1);
@@ -53,6 +55,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         setCartCount,
         blogs,
         setBlogs,
+        message,
+        setMessage,
       }}
     >
       {children}

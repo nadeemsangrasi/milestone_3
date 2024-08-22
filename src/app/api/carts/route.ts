@@ -30,7 +30,8 @@ export const POST = async (req: NextRequest) => {
 
     if (existingCartProduct) {
       existingCartProduct.quantity += 1;
-      existingCartProduct.price += product.price;
+      existingCartProduct.price +=
+        product.price / (existingCartProduct.quantity - 1);
     } else {
       const newProduct = { ...product, quantity: 1 };
       carts.push(newProduct);
@@ -50,14 +51,10 @@ export const POST = async (req: NextRequest) => {
 };
 
 export const GET = async () => {
-  if (!carts.length) {
-    console.error("Cart is empty");
-    return NextResponse.json(
-      { success: false, message: "Cart is empty" },
-      { status: 500 }
-    );
-  }
-  return NextResponse.json({ carts }, { status: 200 });
+  return NextResponse.json(
+    { carts, success: true, message: "Fetched cart data" },
+    { status: 200 }
+  );
 };
 
 export const DELETE = async (req: NextRequest) => {
@@ -116,18 +113,18 @@ export const PATCH = async (req: NextRequest) => {
       );
     }
 
+    const product = carts[cartIndex];
+
     if (type === "decrement") {
-      if (carts[cartIndex].quantity > 1) {
-        carts[cartIndex].quantity -= 1;
-        carts[cartIndex].price -= carts[cartIndex].price;
+      if (product.quantity > 1) {
+        product.quantity -= 1;
+        product.price -= product.price / (product.quantity + 1); // Adjust price correctly
       } else {
-        // If the quantity is 1, remove the item from the cart
-        carts[cartIndex].quantity = 1;
-        carts[cartIndex].price = carts[cartIndex].price;
+        carts.splice(cartIndex, 1); // Remove the product from the cart
       }
     } else if (type === "increment") {
-      carts[cartIndex].quantity += 1;
-      carts[cartIndex].price += carts[cartIndex].price;
+      product.quantity += 1;
+      product.price += product.price / (product.quantity - 1); // Adjust price correctly
     } else {
       console.error("Invalid type");
       return NextResponse.json(

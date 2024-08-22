@@ -1,18 +1,16 @@
 "use client";
-import Button from "@/components/shared/Button";
+
 import Wrapper from "@/components/shared/Wrapper";
 import { useCart } from "@/context/CartContext";
-import { fetchCartsData } from "@/lib/fetchCartsDara";
 import { IProduct } from "@/types/types";
-import { Minus, Plus, Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import CartCard from "./CartCard";
+import { Loader2 } from "lucide-react";
 
 const CartsPage = () => {
   const [carts, setCarts] = useState<IProduct[]>([]);
   const [isCartLoading, setIsCartLoading] = useState<boolean>(false);
-  const { setCartCount, cartCount, message, setMessage } = useCart();
+  const { setCartCount, cartCount } = useCart();
   const [totalAmount, setTotalAmount] = useState<number>(0);
   useEffect(() => {
     const total = carts?.reduce(
@@ -24,11 +22,14 @@ const CartsPage = () => {
   }, [carts]);
 
   useEffect(() => {
-    fetchCartsData().then((data: IProduct[]) => {
+    const fetchCartData = async () => {
       setIsCartLoading(true);
-      setCarts(data);
+      const res = await fetch("/api/carts");
+      const data = await res.json();
+      setCarts(data.carts || []);
       setIsCartLoading(false);
-    });
+    };
+    fetchCartData();
   }, []);
 
   const deleteCart = async (id: string) => {
@@ -49,9 +50,6 @@ const CartsPage = () => {
         body: JSON.stringify({ id }),
       });
       const data = await res.json();
-      if (data.success) {
-        setMessage(data.message);
-      }
     } catch (error) {
       console.error("Error deleting product from cart", error);
     }
@@ -128,39 +126,52 @@ const CartsPage = () => {
     <Wrapper>
       <div className="py-16">
         <div className="my-16">
-          <h1 className="text-2xl sm:text-3xl font-bold mt-8 text-emerald-300">
-            Available carts
-          </h1>
-          <div className="grid lg:grid-cols-2 grid-cols-1">
-            <div className="flex flex-col gap6">
-              {carts &&
-                carts.map((cart: any) => (
-                  <CartCard
-                    key={cart.id}
-                    cart={cart}
-                    handleCartIncrement={handleCartIncrement}
-                    handleCartDecrement={handleCartDecrement}
-                    deleteCart={deleteCart}
-                  />
-                ))}
-            </div>
-            <div className="checkout space-y-4 mt-12 w-fit mx-auto">
-              <h1 className="text-2xl sm:text-3xl font-bold mt-8 ">
-                Order summary
+          {isCartLoading ? (
+            <div className="flex items-center justify-center py-24 gap-2 flex-wrap">
+              <Loader2 className="h-10 w-10 sm:h-16 sm:w-16 animate-spin text-white " />
+              <h1 className="text-2xl sm:text-5xl font-bold">
+                Loading Products...
               </h1>
-              <div className="flex justify-between">
-                <h2 className="text-xl font-semibold">Quantity</h2>
-                <h2 className="text-xl font-semibold">{cartCount} Product</h2>
-              </div>
-              <div className="flex justify-between">
-                <h2 className="text-xl font-semibold">Subtotal</h2>
-                <h2 className="text-xl font-semibold">${totalAmount}</h2>
-              </div>
-              <button className="bg-white text-black  font-bold py-2 px-4 rounded-md mx-auto block my-4">
-                checkout now
-              </button>
             </div>
-          </div>
+          ) : (
+            <>
+              <h1 className="text-2xl sm:text-3xl font-bold mt-8 text-emerald-300">
+                Available carts
+              </h1>
+              <div className="grid lg:grid-cols-2 grid-cols-1">
+                <div className="flex flex-col gap6">
+                  {carts &&
+                    carts.map((cart: any) => (
+                      <CartCard
+                        key={cart.id}
+                        cart={cart}
+                        handleCartIncrement={handleCartIncrement}
+                        handleCartDecrement={handleCartDecrement}
+                        deleteCart={deleteCart}
+                      />
+                    ))}
+                </div>
+                <div className="checkout space-y-4 mt-12 w-fit mx-auto">
+                  <h1 className="text-2xl sm:text-3xl font-bold mt-8 ">
+                    Order summary
+                  </h1>
+                  <div className="flex justify-between">
+                    <h2 className="text-xl font-semibold">Quantity</h2>
+                    <h2 className="text-xl font-semibold">
+                      {cartCount} Product
+                    </h2>
+                  </div>
+                  <div className="flex justify-between">
+                    <h2 className="text-xl font-semibold">Subtotal</h2>
+                    <h2 className="text-xl font-semibold">${totalAmount}</h2>
+                  </div>
+                  <button className="bg-white text-black  font-bold py-2 px-4 rounded-md mx-auto block my-4">
+                    checkout now
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Wrapper>
