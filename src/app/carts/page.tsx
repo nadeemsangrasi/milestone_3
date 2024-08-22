@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/shared/Button";
 import Wrapper from "@/components/shared/Wrapper";
 import { useCart } from "@/context/CartContext";
 import { fetchCartsData } from "@/lib/fetchCartsDara";
@@ -6,12 +7,21 @@ import { IProduct } from "@/types/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import CartCard from "./CartCard";
 
 const CartsPage = () => {
   const [carts, setCarts] = useState<IProduct[]>([]);
   const [isCartLoading, setIsCartLoading] = useState<boolean>(false);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
   const { setCartCount, cartCount, message, setMessage } = useCart();
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  useEffect(() => {
+    const total = carts?.reduce(
+      (acc, cart) => acc + cart.price * cart.quantity,
+      0
+    );
+
+    setTotalAmount(total ? parseFloat(total.toFixed(2)) : 0);
+  }, [carts]);
 
   useEffect(() => {
     fetchCartsData().then((data: IProduct[]) => {
@@ -22,10 +32,14 @@ const CartsPage = () => {
   }, []);
 
   const deleteCart = async (id: string) => {
+    const cartIndex = carts.findIndex((cart) => cart.id === id);
     if (cartCount !== 0) {
-      setCartCount((cartCount: number) => cartCount - 1);
+      setCartCount(
+        (cartCount: number) => cartCount - carts[cartIndex].quantity
+      );
     }
     setCarts(carts.filter((cart: IProduct) => cart.id !== id));
+
     try {
       const res = await fetch("/api/carts", {
         method: "DELETE",
@@ -59,7 +73,9 @@ const CartsPage = () => {
           ? {
               ...cart,
               quantity: cart.quantity - 1,
-              price: cart.price - cart.price,
+              price: parseFloat(
+                (cart.price - cart.price / cart.quantity).toFixed(2)
+              ),
             }
           : cart
       );
@@ -89,7 +105,9 @@ const CartsPage = () => {
         ? {
             ...cart,
             quantity: cart.quantity + 1,
-            price: cart.price + cart.price,
+            price: parseFloat(
+              (cart.price + cart.price / cart.quantity).toFixed(2)
+            ),
           }
         : cart
     );
@@ -110,52 +128,38 @@ const CartsPage = () => {
     <Wrapper>
       <div className="py-16">
         <div className="my-16">
-          <h1 className="text-3xl font-bold mt-8 ">Available carts</h1>
-          <div>
-            <div className="flex flex-col gap-6">
+          <h1 className="text-2xl sm:text-3xl font-bold mt-8 text-emerald-300">
+            Available carts
+          </h1>
+          <div className="grid lg:grid-cols-2 grid-cols-1">
+            <div className="flex flex-col gap6">
               {carts &&
                 carts.map((cart: any) => (
-                  <div key={cart.id} className="flex gap-6">
-                    <div>
-                      <Image
-                        src={cart.thumbnail}
-                        alt={cart.title}
-                        width={300}
-                        height={300}
-                        className="w-[300px] h-[300px] object-cover"
-                      />
-                    </div>
-                    <div className="mt-20 space-y-3">
-                      <div className="space-y-2">
-                        <h1 className="text-3xl font-bold ">{cart.title}</h1>
-                        <h1 className="text-2xl font-semibold">{cart.brand}</h1>
-                        <h1 className="text-xl text-red-500 ">${cart.price}</h1>
-                      </div>
-                      <div className="flex gap-2  justify-between">
-                        <div className="flex gap-2">
-                          <Minus
-                            className="cursor-pointer"
-                            onClick={() => handleCartDecrement(cart.id)}
-                          />
-                          {cart.quantity}
-                          <Plus
-                            className="cursor-pointer"
-                            onClick={() => handleCartIncrement(cart.id)}
-                          />
-                        </div>
-                        <h1>
-                          <Trash2
-                            onClick={() => deleteCart(cart.id)}
-                            className="cursor-pointer"
-                          />
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
+                  <CartCard
+                    key={cart.id}
+                    cart={cart}
+                    handleCartIncrement={handleCartIncrement}
+                    handleCartDecrement={handleCartDecrement}
+                    deleteCart={deleteCart}
+                  />
                 ))}
             </div>
-
-            <div className="checkout"></div>
+            <div className="checkout space-y-4 mt-12 w-fit mx-auto">
+              <h1 className="text-2xl sm:text-3xl font-bold mt-8 ">
+                Order summary
+              </h1>
+              <div className="flex justify-between">
+                <h2 className="text-xl font-semibold">Quantity</h2>
+                <h2 className="text-xl font-semibold">{cartCount} Product</h2>
+              </div>
+              <div className="flex justify-between">
+                <h2 className="text-xl font-semibold">Subtotal</h2>
+                <h2 className="text-xl font-semibold">${totalAmount}</h2>
+              </div>
+              <button className="bg-white text-black  font-bold py-2 px-4 rounded-md mx-auto block my-4">
+                checkout now
+              </button>
+            </div>
           </div>
         </div>
       </div>

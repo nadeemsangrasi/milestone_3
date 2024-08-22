@@ -1,29 +1,33 @@
-"use client";
-import ProductCard from "@/components/shared/ProductCard";
+import Image from "next/image";
 import Wrapper from "@/components/shared/Wrapper";
-import { useCart } from "@/context/CartContext";
-import React from "react";
-
-const HomeSection = () => {
-  const { products } = useCart();
+import homeImage from "@/assets/images/home-page-img.jpg";
+const HomePage = () => {
   return (
     <Wrapper>
-      <div className="py-20">
-        <div className="my-16">
-          <h1 className="text-6xl font-bold text-center my-20">Our Products</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.length > 0 &&
-              products.map((product: any) => (
-                <ProductCard
-                  key={product.id}
-                  id={product.id}
-                  title={product.title}
-                  price={product.price}
-                  brand={product.brand}
-                  category={product.category}
-                  thumbnail={product.thumbnail}
-                />
-              ))}
+      <div className="py-16">
+        <div className="flex flex-col md:flex-row items-center justify-around my-20   ">
+          <div className="space-y-4 max-w-md">
+            <h1 className="text-4xl font-bold">
+              Discover Our Exclusive Collection
+            </h1>
+            <h2 className="text-xl text-secondary-white">
+              Luxury, Style, and Comfort
+            </h2>
+            <p className="text-lg text-secondary-white">
+              Explore a curated selection of top-quality products designed to
+              meet your lifestyle needs. Whether you are looking for the latest
+              fashion trends or timeless classics, we have got you covered.
+            </p>
+            <button className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg ">
+              Shop Now
+            </button>
+          </div>
+          <div className="w-1/2 mt-10 md:mt-0 rounded-lg overflow-hidden">
+            <Image
+              src={homeImage}
+              alt="Featured Product"
+              className="w-full h-full object-cover rounded-lg hover:scale-110 duration-500 hover:duration-500"
+            />
           </div>
         </div>
       </div>
@@ -31,4 +35,4 @@ const HomeSection = () => {
   );
 };
 
-export default HomeSection;
+export default HomePage;

@@ -9,16 +9,19 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <div className="flex justify-between items-center bg-secondary-black text-white px-4 py-4 mt-2 shadow-2xl  w-[90%]  fixed left-1/2 -translate-x-1/2">
-        <h1 className="font-bold text-2xl">
-          <Link href={"/"}>Shopping Cart</Link>
+      <div className="z-50 flex justify-between items-center bg-secondary-black text-white px-4 py-4 mt-2 shadow-2xl  w-[90%]  fixed left-1/2 -translate-x-1/2">
+        <h1 className="font-bold text-2xl text-emerald-300">
+          <Link href={"/"}>EliteEcommerce</Link>
         </h1>
         <div>
           <ul className="flex gap-4">
-            <li className="text-semibold text-xl">
+            <li className="text-semibold text-xl  hover:text-emerald-500">
+              <Link href={"/products"}>Products</Link>
+            </li>
+            <li className="text-semibold text-xl hover:text-emerald-500">
               <Link href={"/blogs"}>Blogs</Link>
             </li>
-            <li className="text-semibold text-2xl ">
+            <li className="text-semibold text-2xl hover:text-emerald-500">
               <Link href={"/carts"} className="flex gap-1 items-center">
                 <ShoppingCart fontSizeAdjust={20} /> {cartCount}
               </Link>
