@@ -2,6 +2,7 @@
 import ProductCard from "@/components/shared/ProductCard";
 import Wrapper from "@/components/shared/Wrapper";
 import { useCart } from "@/context/CartContext";
+import { IProduct } from "@/types/types";
 import { Loader2 } from "lucide-react";
 import React from "react";
 
@@ -25,7 +26,7 @@ const ProductsPage = () => {
               </h1>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {products.length > 0 &&
-                  products.map((product: any) => (
+                  products.map((product: IProduct) => (
                     <ProductCard
                       key={product.id}
                       id={product.id}

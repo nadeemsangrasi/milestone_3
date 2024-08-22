@@ -1,7 +1,17 @@
-import { IProduct } from "@/types/types";
+// src/types/types.ts
+export interface IProduct {
+  id: string;
+  price: number;
+  quantity: number;
+  // Add other properties as needed
+}
 
-export const carts: IProduct[] = [];
+// src/app/api/carts/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
+
+// Define carts as a local variable for this module
+const carts: IProduct[] = [];
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -25,15 +35,14 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const product = await res.json();
+    const product: IProduct = await res.json();
     const existingCartProduct = carts.find((cart) => cart.id === product.id);
 
     if (existingCartProduct) {
       existingCartProduct.quantity += 1;
-      existingCartProduct.price +=
-        product.price / (existingCartProduct.quantity - 1);
+      existingCartProduct.price += product.price / existingCartProduct.quantity;
     } else {
-      const newProduct = { ...product, quantity: 1 };
+      const newProduct: IProduct = { ...product, quantity: 1 };
       carts.push(newProduct);
     }
 
@@ -78,10 +87,7 @@ export const DELETE = async (req: NextRequest) => {
     }
     carts.splice(cartIndex, 1);
     return NextResponse.json(
-      {
-        success: true,
-        message: "Product deleted from cart",
-      },
+      { success: true, message: "Product deleted from cart" },
       { status: 200 }
     );
   } catch (error) {
@@ -118,13 +124,13 @@ export const PATCH = async (req: NextRequest) => {
     if (type === "decrement") {
       if (product.quantity > 1) {
         product.quantity -= 1;
-        product.price -= product.price / (product.quantity + 1); // Adjust price correctly
+        product.price -= product.price / (product.quantity + 1);
       } else {
-        carts.splice(cartIndex, 1); // Remove the product from the cart
+        carts.splice(cartIndex, 1);
       }
     } else if (type === "increment") {
       product.quantity += 1;
-      product.price += product.price / (product.quantity - 1); // Adjust price correctly
+      product.price += product.price / (product.quantity - 1);
     } else {
       console.error("Invalid type");
       return NextResponse.json(

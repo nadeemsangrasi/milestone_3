@@ -1,7 +1,6 @@
 "use client";
 import Wrapper from "@/components/shared/Wrapper";
 import { useCart } from "@/context/CartContext";
-import { blogsData } from "@/data/blogsData";
 import { IBlogComment, IBlogPost } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
@@ -9,9 +8,14 @@ import { useState } from "react";
 const BlogPostPage = ({ params }: { params: { blog_id: string } }) => {
   const { blogs, setBlogs } = useCart();
   const { blog_id } = params;
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+  }).format(new Date());
   const [comment, setComment] = useState({
     id: crypto.randomUUID(),
-    date: new Date().toLocaleDateString(),
+    date: formattedDate,
     content: "",
     author: "",
   });
@@ -37,6 +41,9 @@ const BlogPostPage = ({ params }: { params: { blog_id: string } }) => {
   });
   const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!comment.author || !comment.content) {
+      return;
+    }
     setBlogs(updatedBlogs);
     setComment({
       id: crypto.randomUUID(),

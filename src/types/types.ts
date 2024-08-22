@@ -21,7 +21,14 @@ export enum ButtonType {
 
 export interface IButtonProps {
   label: string;
-  data: IProduct;
+  data: {
+    id: string;
+    title: string;
+    price: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+  };
   type: ButtonType;
   className?: string;
 }

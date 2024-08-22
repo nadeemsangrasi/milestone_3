@@ -4,7 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "./Button";
 import { ButtonType } from "@/types/types";
-const ProductCard = ({ id, title, price, brand, category, thumbnail }: any) => {
+const ProductCard = ({
+  id,
+  title,
+  price,
+  brand,
+  category,
+  thumbnail,
+}: {
+  id: string;
+  title: string;
+  price: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+}) => {
   return (
     <div className="bg-secondary-black mx-auto flex flex-col justify-between card rounded-xl text-center md:text-start  hover:shadow-2xl transition-all ease  duration-500 hover:-translate-y-5 w-[300px] h-fit  md:w-[340px] ">
       <div className="overflow-hidden ">
