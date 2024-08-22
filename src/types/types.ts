@@ -10,6 +10,7 @@ export interface IProduct {
   images: string;
   stock: string;
   description: string;
+  quantity: number;
 }
 
 export enum ButtonType {

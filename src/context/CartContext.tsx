@@ -39,30 +39,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const deleteCart = async (id: string) => {
-    setCartCount((cartCount: number) => cartCount - 1);
-    setProducts(products.filter((product: IProduct) => product.id !== id));
-    try {
-      const res = await fetch("/api/carts", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setMessage(data.message);
-        alert(message);
-      }
-    } catch (error) {
-      console.error("Error deleting product from cart", error);
-    }
-  };
-
   return (
     <CartContext.Provider
-      value={{ cartCount, products, addToCart, deleteCart, isLoading }}
+      value={{ cartCount, products, addToCart, isLoading, setCartCount }}
     >
       {children}
     </CartContext.Provider>
