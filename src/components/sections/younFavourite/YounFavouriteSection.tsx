@@ -23,9 +23,9 @@ const youngFavourite: {
 const YoungFavouriteSection = () => {
   return (
     <Wrapper>
-      <Heading label="New Arrivals" />
+      <Heading label="Young's Favourite" />
 
-      <div className="my-16">
+      <div className="my-16" id="young">
         <div className="flex py-16 flex-wrap gap-8 lg:gap-0 ">
           {youngFavourite.map(
             ({ image, title }: { image: StaticImageData; title: string }) => (

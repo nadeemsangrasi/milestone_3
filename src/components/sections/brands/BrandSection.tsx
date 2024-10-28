@@ -16,7 +16,7 @@ const brands: StaticImageData[] = [
 ];
 const BrandSection = () => {
   return (
-    <div className="px-4  sm:px-20 py-8 bg-secondary-yellow">
+    <div className="px-4  sm:px-20 py-8 bg-secondary-yellow" id="brands">
       <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-6 gap-4 items-center ">
         {brands.map((brand: StaticImageData) => (
           <Image

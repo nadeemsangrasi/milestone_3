@@ -26,7 +26,7 @@ const newArrival: {
 const NewArrivalSection = () => {
   return (
     <Wrapper>
-      <div className="my-16">
+      <div className="my-16" id="new">
         <Heading label="New Arrivals" />
 
         <div className="flex py-16 justify-between flex-wrap gap-8 lg:gap-0">

@@ -3,6 +3,7 @@ import { IProduct } from "@/types/types";
 import Image from "next/image";
 import React from "react";
 
+//ssg implementation
 export const generateStaticParams = async () => {
   const response = await fetch("https://dummyjson.com/products");
   const data = await response.json();

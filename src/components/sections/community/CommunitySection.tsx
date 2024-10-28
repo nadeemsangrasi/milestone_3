@@ -2,7 +2,7 @@ import React from "react";
 
 const CommunitySection = () => {
   return (
-    <div className="py-16 bg-primary-yellow ">
+    <div className="py-16 bg-primary-yellow " id="community">
       <div className="md:w-1/2 mx-auto text-center space-y-3">
         <h1 className=" text-3xl md:text-4xl font-semibold text-primary-white">
           JOIN SHOPPING COMMUNITY TO GET MONTHLY PROMO

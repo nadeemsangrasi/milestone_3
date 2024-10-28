@@ -4,7 +4,7 @@ import React from "react";
 import img from "@/assets/images/sectionsImages/image_12-removebg-preview.png";
 const BannerSection = () => {
   return (
-    <div className="bg-[#E0C340] flex justify-center items-center">
+    <div className="bg-[#E0C340] flex justify-center items-center" id="sale">
       <div className="md:flex gap-20 my-6  ">
         <div>
           <Image src={img} alt="banner image mix-blend-multiply w-full" />

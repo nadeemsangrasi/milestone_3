@@ -18,7 +18,7 @@ const CartCard = ({
   return (
     <div
       key={cart.id}
-      className="md:flex gap-6 w-full lg:w-full sm:w-3/4 mx-auto "
+      className="md:flex gap-6 w-full lg:w-full sm:w-3/4 mx-auto bg-primary-gray my-4 rounded-md px-4"
     >
       <div>
         <Link href={`/products/${cart.id}`}>

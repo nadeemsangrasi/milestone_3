@@ -124,22 +124,22 @@ const CartsPage = () => {
   };
   return (
     <Wrapper>
-      <div className="py-16">
+      <div className="py-16 ">
         <div className="my-16">
           {isCartLoading ? (
             <div className="flex items-center justify-center py-24 gap-2 flex-wrap">
-              <Loader2 className="h-10 w-10 sm:h-16 sm:w-16 animate-spin text-white " />
-              <h1 className="text-2xl sm:text-5xl font-bold">
+              <Loader2 className="h-10 w-10 sm:h-16 sm:w-16 animate-spin text-black " />
+              <h1 className="text-2xl sm:text-5xl font-bold text-black">
                 Loading Products...
               </h1>
             </div>
           ) : (
             <>
-              <h1 className="text-2xl sm:text-3xl font-bold mt-8 text-emerald-300">
+              <h1 className="text-2xl sm:text-3xl font-bold mt-8 text-black">
                 Available carts
               </h1>
-              <div className="grid lg:grid-cols-2 grid-cols-1">
-                <div className="flex flex-col gap6">
+              <div className="grid lg:grid-cols-2 grid-cols-1 ">
+                <div className="flex flex-col ">
                   {carts &&
                     carts.map((cart: any) => (
                       <CartCard
@@ -151,7 +151,7 @@ const CartsPage = () => {
                       />
                     ))}
                 </div>
-                <div className="checkout space-y-4 mt-12 w-fit mx-auto">
+                <div className="checkout space-y-4 mt-12 w-fit mx-auto h-fit bg-primary-yellow px-8 pb-6 rounded-md">
                   <h1 className="text-2xl sm:text-3xl font-bold mt-8 ">
                     Order summary
                   </h1>
@@ -165,7 +165,7 @@ const CartsPage = () => {
                     <h2 className="text-xl font-semibold">Subtotal</h2>
                     <h2 className="text-xl font-semibold">${totalAmount}</h2>
                   </div>
-                  <button className="bg-white text-black  font-bold py-2 px-4 rounded-md mx-auto block my-4">
+                  <button className="bg-black text-white  font-bold py-2 px-4 rounded-md mx-auto block my-4">
                     checkout now
                   </button>
                 </div>

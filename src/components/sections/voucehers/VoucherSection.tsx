@@ -7,7 +7,7 @@ import logo2 from "@/assets/logos/Rectangle 18.png";
 const VoucherSection = () => {
   return (
     <Wrapper>
-      <div className="mx-auto">
+      <div className="mx-auto" id="mobile">
         <div className="py-10 md:flex items-center justify-center gap-8">
           <div className="md:w-[35%] space-y-4  text-center md:text-left">
             <h3 className="text-3xl md:text-5xl font-bold leading-10 md:leading-[60px]">

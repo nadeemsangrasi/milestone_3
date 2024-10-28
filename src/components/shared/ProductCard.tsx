@@ -20,7 +20,7 @@ const ProductCard = ({
   thumbnail: string;
 }) => {
   return (
-    <div className="bg-secondary-black mx-auto flex flex-col justify-between card rounded-xl text-center md:text-start  hover:shadow-2xl transition-all ease  duration-500 hover:-translate-y-5 w-[300px] h-fit  md:w-[340px] ">
+    <div className="bg-primary-gray mx-auto flex flex-col justify-between card rounded-xl text-center md:text-start  hover:shadow-2xl transition-all ease  duration-500 hover:-translate-y-5 w-[300px] h-fit  md:w-[340px] ">
       <div className="overflow-hidden ">
         <div>
           <Image
@@ -31,16 +31,16 @@ const ProductCard = ({
             className="object-cover rounded-lg "
           />
         </div>
-        <h1 className="text-white font-bold px-5 text-lg hover:text-blue-400 ">
+        <h1 className="bg-primary-yellow w-fit font-bold text-black mx-5 px-2 text-lg  ">
           <Link href={`/${title}`}>{category}</Link>
         </h1>
-        <h2 className="text-2xl font-bold px-5 break-words ">
+        <h2 className="text-2xl font-bold px-5 break-words py-2">
           <Link href={title}>{title}</Link>
         </h2>
-        <h2 className="text-2xl text-white font-bold px-5 break-words py-2">
+        <h2 className="text-lg bg-primary-white text-black w-fit font-bold mx-5 px-2  break-words ">
           ${price}
         </h2>
-        <div className="space-x-4 px-5 my-2">
+        <div className="space-x-4 px-5 my-4">
           <Button
             label="Cart"
             data={{
@@ -52,7 +52,7 @@ const ProductCard = ({
               thumbnail: thumbnail,
             }}
             type={ButtonType.CART}
-            className="bg-white text-black"
+            className="bg-black text-white"
           />
           <Button
             data={{
@@ -65,7 +65,7 @@ const ProductCard = ({
             }}
             type={ButtonType.DETAILS}
             label="details"
-            className="bg-emerald-500 text-white"
+            className="bg-black text-white"
           />
         </div>
       </div>
