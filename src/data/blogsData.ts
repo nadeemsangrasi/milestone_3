@@ -1,10 +1,10 @@
 import { IBlogPost } from "@/types/types";
-import blogOne1 from "@/assets/images/blog-one-1.jpg";
-import blogOne2 from "@/assets/images/blog-one-2.jpg";
-import blogTwo1 from "@/assets/images/blog-two-1.jpg";
-import blogTwo2 from "@/assets/images/blog-two-2.jpg";
-import blogThree1 from "@/assets/images/blog-three-1.jpg";
-import blogThree2 from "@/assets/images/blog-three-2.jpg";
+import blogOne1 from "@/assets/images/blogsImages/blog-one-1.jpg";
+import blogOne2 from "@/assets/images/blogsImages/blog-one-2.jpg";
+import blogTwo1 from "@/assets/images/blogsImages/blog-two-1.jpg";
+import blogTwo2 from "@/assets/images/blogsImages/blog-two-2.jpg";
+import blogThree1 from "@/assets/images/blogsImages/blog-three-1.jpg";
+import blogThree2 from "@/assets/images/blogsImages/blog-three-2.jpg";
 export const blogsData: IBlogPost[] = [
   {
     id: "1",

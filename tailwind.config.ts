@@ -9,12 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "primary-black": "#0C0C0D",
-        "secondary-black": "#211F23",
-        "primary-gray": "#272727",
-        "secondary-gray": "#6f6f6f",
+        "primary-black": "#000000",
+        "primary-yellow": "#E6C744",
+        "secondary-yellow": "#EBD96B",
+        "primary-gray": "#C2C8DA",
+        "secondary-gray": "#E7E6E6",
         "primary-white": "#FFFFFF",
-        "secondary-white": "#c8c8c8",
+
         seagreen: "#5fb9bo",
       },
       backgroundImage: {
