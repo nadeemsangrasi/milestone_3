@@ -18,7 +18,7 @@ const Header = () => {
           FASHION
         </Link>
       </h1>
-      <div>
+      <div className="mx-auto sm:mx-0">
         <ul className="flex gap-2 sm:gap-12 items-center">
           <li className="font-medium text-sm sm:text-xl tracking-wider ">
             <Link href={"/products"}>PRODUCTS</Link>

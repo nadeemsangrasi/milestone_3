@@ -22,7 +22,7 @@ const VoucherSection = () => {
               <Image src={logo2} alt="google play logo" className="w-32" />
             </div>
           </div>
-          <div className="md:w-[30%] mx-auto md:mx-0">
+          <div className="md:w-[30%] mx-auto sm:mx-0">
             <Image src={img} alt="mobile app" className="w-fit" />
           </div>
         </div>

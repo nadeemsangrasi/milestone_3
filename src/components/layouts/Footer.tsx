@@ -60,7 +60,7 @@ const quickLinks: ILink[] = [
   },
   {
     name: "Products",
-    url: "/Products",
+    url: "/products",
   },
   {
     name: "Brands",
